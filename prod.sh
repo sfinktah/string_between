@@ -13,5 +13,7 @@ echo $version
 twine check "$lastfile" || exit 1
 twine upload "$lastfile"
 sleep 10
-python -m pip install -i https://test.pypi.org/simple/ string_between==$version
-
+python -m pip install string-between==$version
+cmd /c "python -m pip install string-between==$version"
+cmd /c "c:/Users/sfink/AppData/Local/Programs/Python/Python37/python.exe -m pip install string-between==$version"
+cmd /c 'c:\Users\sfink\AppData\Local\Programs\Python\Python37\Scripts\pip.exe install string-between=='$version

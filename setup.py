@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
-
+VERSION="0.0.7"
 with open("README.rst", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setup(
     name='string_between',
-    version='0.0.1',
+    version=VERSION,
     url='https://github.com/sfinktah/string_between',
     long_description=long_description,
     long_description_content_type="text/x-rst",

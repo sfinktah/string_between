@@ -1,5 +1,5 @@
 {
-    "name": "sfinktah/string-between",
+    "name": "sfinktah/string_between",
     "description": "The ubiquitous string_between function",
     "require": {
         "php": ">=5.0"

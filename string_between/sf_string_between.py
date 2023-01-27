@@ -3,11 +3,9 @@
 import itertools
 import re, os
 try:
-    from attrdict import AttrDict
+    from .attrdict1 import SimpleAttrDict
 except:
     pass
-# requires py > 3.6
-# from typing import Pattern
 
 try:
     from execfile import make_refresh
@@ -88,11 +86,9 @@ def string_between(left, right, subject, *args, **kwargs):
     """
     string_between(left, right, subject, [,start [,end]] [,greedy=False] [,inclusive=False] [,repl=None] [,retn_all_on_fail=False] [,retn_class=False] [,rightmost=False]) -> str
 
-
-    Return the substring sub delineated by being between the
-    strings `left` and `right`, and such that sub is contained
-    within subject[start:end].  Optional default_arguments start and
-    end are interpreted as in slice notation.
+    Return the substring delineated by `left` and `right` within the search
+    space subject[start:end].  Optional default_arguments `start` and `end` 
+    are interpreted as per slice notation.
     
     Return the string between `left` and `right` or empty string on failure
 
@@ -101,13 +97,13 @@ def string_between(left, right, subject, *args, **kwargs):
     @param subject: string to be searched
     @param start: start index for search
     @param end: start and end are interpreted as in slice notation.
-    @param greedy: match biggest span possible
+    @param greedy: match biggest substring possible
     @param inclusive: include anchors in result
-    @param repl [str|callable]: replace span with string (or callable)
+    @param repl [str|callable]: replace matched substring with repl in result
     @param retn_all_on_fail: return original string if match not made
     @param retn_class: return result as StringBetweenResult object
-    @param rightmost: match rightmost span possible by greedily searching for `left`; implies `greedy`
-    @return matched span | modified string | original string | empty StringBetweenResult object
+    @param rightmost: match rightmost substring, possible by greedily searching for `left`; implies `greedy`
+    @return matched substring | original string | empty | StringBetweenResult object
     
     Note: regular expressions must be compiled
 
@@ -149,7 +145,7 @@ def string_between(left, right, subject, *args, **kwargs):
     # start|end|inclusive|greedy|rightmost|repl|retn_all_on_fail|retn_class|
     # left, right, subject, start=0, end=None, inclusive=False, greedy=False, rightmost=False, repl=None, retn_all_on_fail=False, retn_class=False
     # vim regex for above: s/\(\w\+\)=\([^ ,]\+\)/.../g
-    v = AttrDict(kwargs)
+    v = SimpleAttrDict(kwargs)
     for _key, _value in zip(['start', 'end'], args):
         v[_key] = _value
     for _key, _value in default_arguments:
@@ -216,7 +212,7 @@ def string_between(left, right, subject, *args, **kwargs):
     if not ~r or r < l + llen:
         if v.repl is not None or v.retn_all_on_fail: return result.ret(subject, l, r)
         return result.ret('', l, r)
-    if v.inclusive and r:
+    if v.inclusive: #  and r:
         r += rlen
     else:
         l += llen
